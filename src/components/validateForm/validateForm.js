@@ -14,7 +14,7 @@ export default function validateAuth(values) {
   } else if (values.category.length < 2) {
     errors.category = "Kategorię musi zawierać conajmniej 2 znaki"
   }
-
+  //date
   if(!values.date) {
     errors.date = "Podaj datę"
   }

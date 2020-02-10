@@ -1,36 +1,34 @@
 import { useState, useEffect } from "react"
+import { DataService } from '../../services/DataService'
 
 function useFormValidation(initalState, validate) {
   const [values, setValues] = useState(initalState)
   const [errors, setErrors] = useState({})
   const [isSubmitting, setSubmitting] = useState(false)
+  const URL = 'https://budget-app-aa.herokuapp.com/expenses'
 
   useEffect(() => {
     console.log("use effect")
     if(isSubmitting) {
-      console.log(isSubmitting)
       const noErrors = Object.keys(errors).length === 0
-      console.log(Object.keys(errors))
-      console.log(noErrors)
       if(noErrors) {
-        console.log( values.cost, values.category, values.date )
-        setSubmitting(false)
+        DataService.postData(URL, { ...values }) //
+          .then((data) => {
+            console.log(data);
+            //TODO some confirmation MSG in future
+            setSubmitting(false)
+          });
       } else {
         setSubmitting(false)
       }
     }
-  }, [errors])
+  }, [errors, isSubmitting, values])
 
   function handleChange(event) {
     setValues({
       ...values,
       [event.target.name]: event.target.value
     })
-  }
-
-  function handleBlur() {
-    const validationErrors = validate(values);
-    setErrors(validationErrors)
   }
 
   function handleSubmit(event) {
@@ -40,7 +38,7 @@ function useFormValidation(initalState, validate) {
     setSubmitting(true)
   }
 
-  return {handleSubmit, handleChange, handleBlur, values, errors, isSubmitting}
+  return {handleSubmit, handleChange, values, setValues, errors, isSubmitting}
 }
 
 export default useFormValidation

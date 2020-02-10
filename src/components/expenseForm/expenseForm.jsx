@@ -3,10 +3,10 @@ import DatePicker from "react-datepicker"
 
 import "react-datepicker/dist/react-datepicker.css"
 
-import useFormValidation from '../useFormValidation/useFormValidation'
-import validateForm from '../validateForm/validateForm'
+import useFormValidation from './hooks'
+import ValidateForm from '../ValidateForm/ValidateForm'
 
-import { Button, Input } from './Style';
+import * as Styled from './style';
 
 const INITIAL_STATE = {
   cost: '',
@@ -15,17 +15,19 @@ const INITIAL_STATE = {
 }
 
 const  ExpenseForm = () => {
-  const { handleSubmit, handleChange, handleBlur, values, errors, isSubmitting } = useFormValidation(INITIAL_STATE, validateForm);
- 
+  const { handleSubmit, handleChange, values, setValues, errors, isSubmitting } = useFormValidation(INITIAL_STATE, ValidateForm);
+
   const handleDateChange = date => {
-    values.date = date
+    setValues({
+      ...values,
+      date
+    })
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <Input
+    <Styled.Form onSubmit={handleSubmit}>
+      <Styled.Input
         onChange={handleChange}
-        onBlur={handleBlur}
         value={values.cost}
         className={errors.cost && 'error-input'}
         name="cost"
@@ -33,9 +35,8 @@ const  ExpenseForm = () => {
         placeholder="kwota"
       />
       {errors.cost && <p>{errors.cost}</p>}
-      <Input
+      <Styled.Input
         onChange={handleChange}
-        onBlur={handleBlur}
         value={values.category}
         className={errors.category && 'error-input'}
         name="category"
@@ -46,12 +47,11 @@ const  ExpenseForm = () => {
       <DatePicker
         selected={values.date}
         onChange={handleDateChange}
-        
-        customInput={<Input name="date"/>}
+        customInput={<Styled.Input name="date"/>}
       />
       {errors.date && <p>{errors.date}</p>}
-      <Button disabled={isSubmitting} type="submit">Submit</Button>
-    </form>
+      <Styled.Button disabled={isSubmitting} type="submit">Submit</Styled.Button>
+    </Styled.Form>
   )
 }
 
