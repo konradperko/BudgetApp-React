@@ -1,55 +1,66 @@
-import React from "react"
-import DatePicker from "react-datepicker"
+import React, { useState, useEffect } from 'react'
+import { DataService } from '../../services/DataService'
+import DatePicker from 'react-datepicker'
+import { expensesUrl } from '../../static/apiconfig'
 
 import "react-datepicker/dist/react-datepicker.css"
 
-import useFormValidation from './hooks'
-import ValidateForm from '../ValidateForm/ValidateForm'
-
 import * as Styled from './style';
 
-const INITIAL_STATE = {
-  cost: '',
-  category: "",
-  date: new Date()
-}
-
 const  ExpenseForm = () => {
-  const { handleSubmit, handleChange, values, setValues, errors, isSubmitting } = useFormValidation(INITIAL_STATE, ValidateForm);
+  const [cost, setCost] = useState('')
+  const [category, setCategory] = useState('')
+  const [date, setDate] = useState(new Date())
+  const [isSubmitting, setSubmitting] = useState(false)
+
+  useEffect(() => {
+    (async function fetchExpenses() {
+      if(!isSubmitting) { return }
+      try {
+        await DataService.postData(expensesUrl, { cost, category, date })
+        setSubmitting(false)
+      } catch (e) {
+        console.error(e)
+      }
+    })()
+  }, [isSubmitting, cost, category, date])
 
   const handleDateChange = date => {
-    setValues({
-      ...values,
-      date
-    })
+    setDate(date)
+  }
+
+  function handleSubmit(event) {
+    event.preventDefault()
+    setSubmitting(true)
   }
 
   return (
     <Styled.Form onSubmit={handleSubmit}>
       <Styled.Input
-        onChange={handleChange}
-        value={values.cost}
-        className={errors.cost && 'error-input'}
+        onChange={e => setCost(e.target.value)}
+        value={cost}
         name="cost"
-        type="text"
+        type="number"
         placeholder="kwota"
+        min="0"
+        required
       />
-      {errors.cost && <p>{errors.cost}</p>}
       <Styled.Input
-        onChange={handleChange}
-        value={values.category}
-        className={errors.category && 'error-input'}
+        onChange={e => setCategory(e.target.value)}
+        value={category}
         name="category"
         type="text"
         placeholder="kategoria"
+        minlength="2"
+        required
       />
-      {errors.category && <p>{errors.category}</p>}
       <DatePicker
-        selected={values.date}
+        selected={date}
         onChange={handleDateChange}
-        customInput={<Styled.Input name="date"/>}
+        required
+        name="date"
+        customInput={<Styled.Input/>}
       />
-      {errors.date && <p>{errors.date}</p>}
       <Styled.Button disabled={isSubmitting} type="submit">Submit</Styled.Button>
     </Styled.Form>
   )

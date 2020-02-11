@@ -39,4 +39,8 @@ export const Button = styled.button`
   padding: 15px 0;
   border: none;
   background: #545174;
+
+  :disabled {
+    opacity: .25;
+  }
 `;
