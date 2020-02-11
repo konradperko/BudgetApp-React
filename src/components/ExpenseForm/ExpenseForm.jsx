@@ -23,7 +23,7 @@ const  ExpenseForm = () => {
         console.error(e)
       }
     })()
-  }, [isSubmitting, cost, category, date])
+  }, [isSubmitting]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleDateChange = date => {
     setDate(date)
