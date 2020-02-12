@@ -26,10 +26,6 @@ const  ExpenseForm = () => {
     })()
   }, [isSubmitting]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  const handleDateChange = date => {
-    setDate(date)
-  }
-
   function handleSubmit(event) {
     event.preventDefault()
     setSubmitting(true)
@@ -58,7 +54,7 @@ const  ExpenseForm = () => {
       <ChooseCategory />
       <DatePicker
         selected={date}
-        onChange={handleDateChange}
+        onChange={date => setDate(date)}
         required
         name="date"
         customInput={<Styled.Input/>}
