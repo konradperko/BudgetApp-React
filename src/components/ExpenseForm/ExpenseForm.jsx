@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { DataService } from '../../services/DataService'
 import DatePicker from 'react-datepicker'
-import { expensesUrl } from '../../static/apiconfig'
+import { EXPENSES_URL } from '../../static/apiconfig'
+import ChooseCategory from '../ChooseCategory/ChooseCategory'
 
 import "react-datepicker/dist/react-datepicker.css"
 
@@ -17,7 +18,7 @@ const  ExpenseForm = () => {
     (async function fetchExpenses() {
       if(!isSubmitting) { return }
       try {
-        await DataService.postData(expensesUrl, { cost, category, date })
+        await DataService.postData(EXPENSES_URL, { cost, category, date })
         setSubmitting(false)
       } catch (e) {
         console.error(e)
@@ -54,6 +55,7 @@ const  ExpenseForm = () => {
         minlength="2"
         required
       />
+      <ChooseCategory />
       <DatePicker
         selected={date}
         onChange={handleDateChange}
