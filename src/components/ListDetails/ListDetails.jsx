@@ -6,48 +6,56 @@ import ItemDetails from '../ItemDetails/ItemDetails'
 import Loader from '../Loader/Loader'
 import Status from '../Status/Status'
 
-const ListDetails = ({ }) => {
-  const [expenseList, setExpenseList] = useState(undefined)
-  
+const ListDetails = () => {
+  const [expenseList, setExpenseList] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [errors, setErrors] = useState(false)
 
+  
   useEffect(() => {
-    serviceNode.getExpenses().then((response) => response.json())
-    .then((data) => {
-      setExpenseList(data)
-    }).catch(error => {
-      setExpenseList(false)
-    })
-  }, [])
+    if(loading) {
+      (async () => {
+        try {
+          const result = await serviceNode.getExpenses().then(data => (data.json()))
+          setLoading(false)
+          console.log(result)
+          setExpenseList(result)
+        } catch (error) {
+          setErrors(true);
+        }
+      })()
+    }
+  }, [loading])
 
   return(
     <>
-      <S.Wrapper>
-        <S.Headline>List of Expense</S.Headline>
-        { expenseList === undefined ? <Loader /> : 
-          expenseList === false ? <Status status={'error'} message={'Przepraszam poszło coś nie tak'} /> :
-          expenseList.length === 0 ? <Status status={'error'} message={'Brak produktów'} /> : (
-          <S.Table>
-            <S.TableHead>
-              <S.TableRow>
-                {Object.keys(expenseList[0]).map((keyExpense) => (
-                  <S.TableHeadline>
+      <S.Headline>List of Expense</S.Headline>
+      { loading ? <Loader /> : 
+        errors ? <Status status={'error'} message={errors.message} /> :
+        expenseList.length === 0  ? <Status status={'error'} message={'Brak produktów'} /> : (
+        <S.Table>
+          <S.TableHead>
+            <S.TableRow>
+              {Object.keys(expenseList[0]).map((keyExpense, i) => {
+                return (
+                  <S.TableHeadline key={i}>
                     {keyExpense}
                   </S.TableHeadline>
-                ))}
-              </S.TableRow>
-            </S.TableHead>
-            <S.TableBody>
-              {
-                expenseList.map((expense) => (
-                  <ItemDetails type="table" data={expense} />
-                )) 
-              }
-              <S.TableRow>
-              </S.TableRow>
-            </S.TableBody>
-          </S.Table>
-        )}
-      </S.Wrapper>
+                )
+              })}
+            </S.TableRow>
+          </S.TableHead>
+          <S.TableBody>
+            {
+              expenseList.map((expense) => (
+                <ItemDetails key={expense._id} type="table" data={expense} />
+              )) 
+            }
+            <S.TableRow>
+            </S.TableRow>
+          </S.TableBody>
+        </S.Table>
+      )}
     </>
   )
 }

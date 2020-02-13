@@ -1,10 +1,9 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-// polyfills
 import App from './components/App'
 ReactDOM.render(
-        <App />,
+  <App />,
 document.getElementById('root'));
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
