@@ -3,7 +3,7 @@ import Header from '../Header/Header'
 import Footer from '../Footer/Footer'
 import ListDetails from '../ListDetails/ListDetails'
 
- const Layout = ({ }) => {
+ const Layout = () => {
     return(
         <>
             <Header />

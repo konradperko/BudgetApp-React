@@ -10,5 +10,5 @@ export const SuccessIcon = styled(CheckCircle)`
     width: 150px;
 `
 export const Message = styled.p`
-    
+    font-size: 18px;
 `
