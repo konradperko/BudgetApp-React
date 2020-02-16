@@ -4,13 +4,13 @@ import Footer from '../Footer/Footer'
 import ListDetails from '../ListDetails/ListDetails'
 
  const Layout = () => {
-    return(
-        <>
-            <Header />
-            <ListDetails />
-            <Footer />
-        </>
-    )
+  return(
+    <>
+      <Header />
+      <ListDetails />
+      <Footer />
+    </>
+  )
 }
 
 export default Layout

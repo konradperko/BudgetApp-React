@@ -10,7 +10,6 @@ const rotate = keyframes`
   }
 `
 
-
 export const Wrapper = styled.div`
   display: block;
   position: relative;
