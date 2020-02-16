@@ -18,7 +18,6 @@ const ListDetails = () => {
         try {
           const result = await serviceNode.getExpenses().then(data => (data.json()))
           setLoading(false)
-          console.log(result)
           setExpenseList(result)
         } catch (error) {
           setErrors(true);
@@ -36,13 +35,18 @@ const ListDetails = () => {
         <S.Table>
           <S.TableHead>
             <S.TableRow>
-              {Object.keys(expenseList[0]).map((keyExpense, i) => {
-                return (
-                  <S.TableHeadline key={i}>
-                    {keyExpense}
-                  </S.TableHeadline>
-                )
-              })}
+                <S.TableHeadline>
+                  Nazwa 
+                </S.TableHeadline>
+                <S.TableHeadline>
+                  Koszty 
+                </S.TableHeadline>
+                <S.TableHeadline>
+                  Data 
+                </S.TableHeadline>
+                <S.TableHeadline>
+                  Kategoria 
+                </S.TableHeadline>
             </S.TableRow>
           </S.TableHead>
           <S.TableBody>
