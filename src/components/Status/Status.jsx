@@ -10,8 +10,6 @@ const Status = ({ status, message }) => {
       </S.Wrapper>
     </>
   )
-
-
 }
 
 export default Status
