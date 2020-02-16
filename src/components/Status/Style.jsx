@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import {ErrorCircle, CheckCircle} from 'styled-icons/boxicons-regular'
+
 export const Wrapper = styled.div`
   text-align: center;
 `

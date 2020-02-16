@@ -6,4 +6,3 @@ export const GlobalStyles = createGlobalStyle`
     font-family: 'Open Sans', sans-serif;
   }
 `
-

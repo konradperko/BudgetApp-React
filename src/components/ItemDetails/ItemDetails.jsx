@@ -15,7 +15,7 @@ const ItemDetails = ({ data, type }) => {
     category
   } = data
   
-  return (
+  return(
     <S.Item as={item}>
       <S.Details as={details}>{_id}</S.Details>
       <S.Details as={details}>{cost}</S.Details>
