@@ -10,7 +10,9 @@ import * as Styled from './style';
 
 const  ExpenseForm = () => {
   const [cost, setCost] = useState('')
-  const [category, setCategory] = useState('')
+  const [categoryName, setCategoryName] = useState()
+  const [categoryType, setCategoryType] = useState()
+  const [subCategory, setSubcategory] = useState('')
   const [date, setDate] = useState(new Date())
   const [isSubmitting, setSubmitting] = useState(false)
 
@@ -18,7 +20,14 @@ const  ExpenseForm = () => {
     (async function fetchExpenses() {
       if(!isSubmitting) { return }
       try {
-        await DataService.postData(EXPENSES_URL, { cost, category, date })
+        await DataService.postData(EXPENSES_URL, {
+          category: {
+            name: categoryName,
+            type: categoryType,
+          },
+          subCategory,
+          cost, 
+          date })
         setSubmitting(false)
       } catch (e) {
         console.error(e)
@@ -26,9 +35,19 @@ const  ExpenseForm = () => {
     })()
   }, [isSubmitting]) // eslint-disable-line react-hooks/exhaustive-deps
 
+  useEffect(() => {
+    console.log(categoryName)
+    console.log(subCategory)
+  }, [categoryName, subCategory])
+
   function handleSubmit(event) {
     event.preventDefault()
     setSubmitting(true)
+  }
+
+  function onCategoryChange(name, type) {
+    setCategoryType(type)
+    setCategoryName(name)
   }
 
   return (
@@ -42,16 +61,10 @@ const  ExpenseForm = () => {
         min="0"
         required
       />
-      <Styled.Input
-        onChange={e => setCategory(e.target.value)}
-        value={category}
-        name="category"
-        type="text"
-        placeholder="kategoria"
-        minlength="2"
-        required
+      <ChooseCategory
+        setSubcategory={setSubcategory}
+        onCategoryChange={onCategoryChange}
       />
-      <ChooseCategory />
       <DatePicker
         selected={date}
         onChange={date => setDate(date)}
