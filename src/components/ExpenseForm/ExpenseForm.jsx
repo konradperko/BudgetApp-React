@@ -3,9 +3,9 @@ import { DataService } from '../../services/DataService'
 import DatePicker from 'react-datepicker'
 import { expensesUrl } from '../../static/apiconfig'
 
-import "react-datepicker/dist/react-datepicker.css"
+import 'react-datepicker/dist/react-datepicker.css'
 
-import * as Styled from './style';
+import * as Styled from './style'
 
 const  ExpenseForm = () => {
   const [cost, setCost] = useState('')
@@ -23,7 +23,8 @@ const  ExpenseForm = () => {
         console.error(e)
       }
     })()
-  }, [isSubmitting]) // eslint-disable-line react-hooks/exhaustive-deps
+  // eslint-disable-next-line
+  }, [isSubmitting])
 
   function handleSubmit(event) {
     event.preventDefault()
@@ -62,4 +63,4 @@ const  ExpenseForm = () => {
   )
 }
 
-export default ExpenseForm;
+export default ExpenseForm

@@ -4,10 +4,10 @@ export const DataService = {
       method: 'POST',
       mode: 'cors',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data)
-    });
-    return await response.json();
-  }
+      body: JSON.stringify(data),
+    })
+    return await response.json()
+  },
 }
