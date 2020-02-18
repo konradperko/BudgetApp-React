@@ -1,9 +1,9 @@
 import styled from 'styled-components'
-import { createGlobalStyle } from "styled-components"
+import { createGlobalStyle } from 'styled-components'
 
 export const GlobalStyles = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css?family=Anton|Open+Sans&display=swap');
-  
+
   * {
     box-sizing: border-box;
   }

@@ -1,12 +1,14 @@
 import React from 'react'
-import Header from '../Header/Header'
+import ExpenseForm from '../ExpenseForm/ExpenseForm'
 import Footer from '../Footer/Footer'
+import Header from '../Header/Header'
 import ListDetails from '../ListDetails/ListDetails'
 
- const Layout = () => {
+const Layout = () => {
   return(
     <>
       <Header />
+      <ExpenseForm />
       <ListDetails />
       <Footer />
     </>

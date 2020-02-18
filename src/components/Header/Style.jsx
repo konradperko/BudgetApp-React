@@ -6,7 +6,7 @@ export const Header = styled.header`
 
 export const Title = styled.h1`
   font-family: 'Anton', sans-serif;
-  margin: 0;
+  margin: 0 0 20px 0;
 `
 
 export const Logo = styled.img`

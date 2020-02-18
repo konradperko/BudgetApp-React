@@ -28,7 +28,7 @@ export const Input = styled.input`
   text-align: center;
   border: 1px solid #545174;
   color: #545174;
-`;
+`
 
 export const Button = styled.button`
   color: #fff;
@@ -43,4 +43,4 @@ export const Button = styled.button`
   :disabled {
     opacity: .25;
   }
-`;
+`
