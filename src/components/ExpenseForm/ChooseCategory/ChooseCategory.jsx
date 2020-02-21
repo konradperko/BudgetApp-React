@@ -7,10 +7,15 @@ const ChooseCategory = params => {
     params.onCategoryChange(e.label, e.value)
   }
 
+  function setOptions() {
+    const options = params.options
+    return options && options.map(item => ({ value: item._id, label: item.name }))
+  }
+
   return (
     <S.ReactSelect
       onChange={handleChangeCategory}
-      options={params.options && params.options.map(item => ({ value: item._id, label: item.name }))}
+      options={setOptions()}
     />
   )
 }

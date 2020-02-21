@@ -7,12 +7,17 @@ const ChooseSubcategory = params => {
     params.onSubcategoryChange(e)
   }
 
+  function setOptions () {
+    const options = params.options
+    return options && options.map(item => ({ value: item, label: item }))
+  }
+
   return (
     <S.ReactSelect
       value={params.subcategory}
       name={params.subcategory.name}
       onChange={handleSubchangeCategory}
-      options={params.options && params.options.map(item => ({ value: item, label: item }))}
+      options={setOptions()}
     />
   )
 }

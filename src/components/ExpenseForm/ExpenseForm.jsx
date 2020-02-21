@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { DataService } from '../../services/DataService'
 import DatePicker from 'react-datepicker'
-import { EXPENSES_URL } from '../../static/apiconfig'
-import ChooseCategory from '../ChooseCategory/ChooseCategory'
-import ChooseSubcategory from '../ChooseSubcategory/ChooseSubcategory'
-import { CATEGORIES_URL } from '../../static/apiconfig'
+import ChooseCategory from './ChooseCategory/ChooseCategory'
+import ChooseSubcategory from './ChooseSubcategory/ChooseSubcategory'
+import { CATEGORIES_URL, EXPENSES_URL } from '../../static/apiconfig'
 
 import 'react-datepicker/dist/react-datepicker.css'
 
@@ -23,9 +22,9 @@ const ExpenseForm = () => {
   useEffect(() => {
     (async function() {
       try {
-        await fetch(`${CATEGORIES_URL}?type=${categoryType}`)
-          .then(response => response.json())
-            .then(data => setCategories(data))
+        const response = await fetch(`${CATEGORIES_URL}?type=${categoryType}`)
+        const data = await response.json();
+        setCategories(data)
       } catch (e) {
         console.error(e)
       }
