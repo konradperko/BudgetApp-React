@@ -8,7 +8,7 @@ const ChooseCategory = params => {
   }
 
   function setOptions() {
-    const options = params.options
+    const { options } = params
     return options && options.map(item => ({ value: item._id, label: item.name }))
   }
 

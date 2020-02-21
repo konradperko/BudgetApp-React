@@ -8,8 +8,7 @@ const ChooseSubcategory = params => {
   }
 
   function setOptions () {
-    const options = params.options
-    return options && options.map(item => ({ value: item, label: item }))
+    return params.options.map(item => ({ value: item, label: item }))
   }
 
   return (

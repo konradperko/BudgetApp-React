@@ -23,7 +23,7 @@ const ExpenseForm = () => {
     (async function() {
       try {
         const response = await fetch(`${CATEGORIES_URL}?type=${categoryType}`)
-        const data = await response.json();
+        const data = await response.json()
         setCategories(data)
       } catch (e) {
         console.error(e)
