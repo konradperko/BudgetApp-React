@@ -8,6 +8,6 @@ export const DataService = {
       },
       body: JSON.stringify(data)
     })
-    return await response.json();
+    return await response.json()
   }
 }

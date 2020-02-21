@@ -10,7 +10,7 @@ export const Form = styled.form `
     width: 100%;
 
     input {
-      width: calc(100% - 2px);
+      width: 100%;
       border: 1px solid #545174;
       color: #545174;
     }
@@ -19,13 +19,13 @@ export const Form = styled.form `
 
 export const Input = styled.input`
   width: 100%;
-  height: 30px;
+  height: 34px;
   margin-bottom: 10px;
   font-size: 16px;
   text-align: center;
   border: 1px solid #545174;
   color: #545174;
-`;
+`
 
 export const Button = styled.button`
   color: #fff;
@@ -40,4 +40,4 @@ export const Button = styled.button`
   :disabled {
     opacity: .25;
   }
-`;
+`

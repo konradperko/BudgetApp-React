@@ -6,9 +6,9 @@ import ChooseCategory from '../ChooseCategory/ChooseCategory'
 import ChooseSubcategory from '../ChooseSubcategory/ChooseSubcategory'
 import { CATEGORIES_URL } from '../../static/apiconfig'
 
-import "react-datepicker/dist/react-datepicker.css"
+import 'react-datepicker/dist/react-datepicker.css'
 
-import * as Styled from './style';
+import * as Styled from './style'
 
 const ExpenseForm = () => {
   const [cost, setCost] = useState('')
@@ -49,7 +49,8 @@ const ExpenseForm = () => {
         console.error(e)
       }
     })()
-  }, [isSubmitting]) // eslint-disable-line react-hooks/exhaustive-deps
+  // eslint-disable-next-line
+  }, [isSubmitting])
 
   useEffect(() => {
     setSubcategory({value: subCategories[0], label: subCategories[0]})
@@ -101,4 +102,4 @@ const ExpenseForm = () => {
   )
 }
 
-export default ExpenseForm;
+export default ExpenseForm
