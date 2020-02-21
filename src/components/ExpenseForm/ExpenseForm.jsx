@@ -3,18 +3,34 @@ import { DataService } from '../../services/DataService'
 import DatePicker from 'react-datepicker'
 import { EXPENSES_URL } from '../../static/apiconfig'
 import ChooseCategory from '../ChooseCategory/ChooseCategory'
+import ChooseSubcategory from '../ChooseSubcategory/ChooseSubcategory'
+import { CATEGORIES_URL } from '../../static/apiconfig'
 
 import "react-datepicker/dist/react-datepicker.css"
 
 import * as Styled from './style';
 
-const  ExpenseForm = () => {
+const ExpenseForm = () => {
   const [cost, setCost] = useState('')
+  const [categories, setCategories] = useState()
   const [categoryName, setCategoryName] = useState()
-  const [categoryType, setCategoryType] = useState()
-  const [subCategory, setSubcategory] = useState('')
+  const [subcategory, setSubcategory] = useState('')
+  const [subCategories, setSubCategories] = useState('')
   const [date, setDate] = useState(new Date())
   const [isSubmitting, setSubmitting] = useState(false)
+  const categoryType = 'EXPENSES'
+  
+  useEffect(() => {
+    (async function() {
+      try {
+        await fetch(`${CATEGORIES_URL}?type=${categoryType}`)
+          .then(response => response.json())
+            .then(data => setCategories(data))
+      } catch (e) {
+        console.error(e)
+      }
+    })()
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     (async function fetchExpenses() {
@@ -25,7 +41,7 @@ const  ExpenseForm = () => {
             name: categoryName,
             type: categoryType,
           },
-          subCategory,
+          subcategory: subcategory.label,
           cost, 
           date })
         setSubmitting(false)
@@ -36,18 +52,21 @@ const  ExpenseForm = () => {
   }, [isSubmitting]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    console.log(categoryName)
-    console.log(subCategory)
-  }, [categoryName, subCategory])
+    setSubcategory({value: subCategories[0], label: subCategories[0]})
+  }, [categoryName])  // eslint-disable-line react-hooks/exhaustive-deps
 
   function handleSubmit(event) {
     event.preventDefault()
     setSubmitting(true)
   }
 
-  function onCategoryChange(name, type) {
-    setCategoryType(type)
+  function onCategoryChange(name, currentCategoryId) {
     setCategoryName(name)
+    setSubCategories(categories && categories.find(x => x._id === currentCategoryId).subcategories.map(item => item))
+  }
+
+  function onSubcategoryChange(subcategory) {
+    setSubcategory(subcategory)
   }
 
   return (
@@ -62,9 +81,14 @@ const  ExpenseForm = () => {
         required
       />
       <ChooseCategory
-        setSubcategory={setSubcategory}
+        options={categories}
         onCategoryChange={onCategoryChange}
       />
+      {subCategories && <ChooseSubcategory 
+        options={subCategories}
+        subcategory={subcategory}
+        onSubcategoryChange={onSubcategoryChange}
+      />}
       <DatePicker
         selected={date}
         onChange={date => setDate(date)}

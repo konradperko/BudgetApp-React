@@ -10,13 +10,10 @@ export const Form = styled.form `
     width: 100%;
 
     input {
-      width: 100%;
+      width: calc(100% - 2px);
       border: 1px solid #545174;
       color: #545174;
     }
-  }
-  .error-input {
-    border-color: #ff0000;
   }
 `
 

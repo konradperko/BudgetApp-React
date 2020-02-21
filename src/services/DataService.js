@@ -7,7 +7,7 @@ export const DataService = {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)
-    });
+    })
     return await response.json();
   }
 }
