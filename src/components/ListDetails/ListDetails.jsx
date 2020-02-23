@@ -54,8 +54,6 @@ const ListDetails = () => {
                     <ItemDetails key={expense._id} type="table" data={expense} />
                   ))
                 }
-                <S.TableRow>
-                </S.TableRow>
               </S.TableBody>
             </S.Table>
           )}

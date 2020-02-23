@@ -29,7 +29,3 @@ export const TableHeadline = styled.th`
 export const TableRow = styled.tr`
   border-bottom: 1px solid #B09EFF;
 `
-
-export const TableCol = styled.td`
-  padding: 12px 12px;
-`

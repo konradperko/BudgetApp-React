@@ -1,8 +1,10 @@
 import React from 'react'
 import * as S from './Style'
 import { DETAILS_TYPE } from '../../common/styledType'
+import Detail from './Detail/Detail'
 
 const ItemDetails = ({ data, type }) => {
+
   const {
     item,
     details,
@@ -15,12 +17,13 @@ const ItemDetails = ({ data, type }) => {
     category,
   } = data
 
+
   return(
     <S.Item as={item}>
-      <S.Details as={details}>{_id}</S.Details>
-      <S.Details as={details}>{cost}</S.Details>
-      <S.Details as={details}>{date}</S.Details>
-      <S.Details as={details}>{category ? category.name : ''}</S.Details>
+      <Detail value={_id} style={details} />
+      <Detail value={cost} style={details} />
+      <Detail value={date} style={details} />
+      <Detail value={category ? category.name : ''} style={details} />
     </S.Item>
   )
 }
