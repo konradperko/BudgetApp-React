@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { DataService } from '../../services/DataService'
 import DatePicker from 'react-datepicker'
-import ChooseCategory from './ChooseCategory/ChooseCategory'
-import ChooseSubcategory from './ChooseSubcategory/ChooseSubcategory'
-import { CATEGORIES_URL, EXPENSES_URL } from '../../static/apiconfig'
+import CustomSelect from './CustomSelect'
+import { CATEGORIES_URL, EXPENSES_URL } from '../../static/api.config'
 
 import 'react-datepicker/dist/react-datepicker.css'
 
@@ -11,14 +10,14 @@ import * as Styled from './style'
 
 const ExpenseForm = () => {
   const [cost, setCost] = useState('')
-  const [categories, setCategories] = useState()
-  const [categoryName, setCategoryName] = useState()
+  const [categories, setCategories] = useState([])
+  const [categoryName, setCategoryName] = useState('')
   const [subcategory, setSubcategory] = useState('')
-  const [subCategories, setSubCategories] = useState('')
+  const [subCategories, setSubCategories] = useState([])
   const [date, setDate] = useState(new Date())
   const [isSubmitting, setSubmitting] = useState(false)
   const categoryType = 'EXPENSES'
-  
+
   useEffect(() => {
     (async function() {
       try {
@@ -41,7 +40,7 @@ const ExpenseForm = () => {
             type: categoryType,
           },
           subcategory: subcategory.label,
-          cost, 
+          cost,
           date })
         setSubmitting(false)
       } catch (e) {
@@ -53,7 +52,7 @@ const ExpenseForm = () => {
 
   useEffect(() => {
     setSubcategory({value: subCategories[0], label: subCategories[0]})
-  }, [categoryName])  // eslint-disable-line react-hooks/exhaustive-deps
+  }, [categoryName]) // eslint-disable-line react-hooks/exhaustive-deps
 
   function handleSubmit(event) {
     event.preventDefault()
@@ -80,12 +79,12 @@ const ExpenseForm = () => {
         min="0"
         required
       />
-      <ChooseCategory
-        options={categories}
+      <CustomSelect
+        options={categories.map(item => ({ value: item._id, label: item.name }))}
         onCategoryChange={onCategoryChange}
       />
-      {subCategories && <ChooseSubcategory 
-        options={subCategories}
+      {subCategories.length > 0 && <CustomSelect
+        options={subCategories.map(item => ({ value: item, label: item }))}
         subcategory={subcategory}
         onSubcategoryChange={onSubcategoryChange}
       />}
