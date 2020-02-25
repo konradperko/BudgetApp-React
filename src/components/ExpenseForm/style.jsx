@@ -15,14 +15,11 @@ export const Form = styled.form `
       color: #545174;
     }
   }
-  .error-input {
-    border-color: #ff0000;
-  }
 `
 
 export const Input = styled.input`
   width: 100%;
-  height: 30px;
+  height: 34px;
   margin-bottom: 10px;
   font-size: 16px;
   text-align: center;
